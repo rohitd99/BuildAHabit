@@ -38,8 +38,7 @@ function Habit (props)
 
     // Click Outside of Delete Popup
     useEffect(() => {
-        console.log("Delete ",deletePopup);
-        console.log("Delete ",deletePopupRef.current);
+        
         let handler = (event) => {
             if(!deletePopupRef.current?.contains(event.target))
             {
@@ -56,8 +55,6 @@ function Habit (props)
     // Click Outside of Update Popup
     useEffect(() => {
 
-        // console.log("Update ",updatePopup);
-        // console.log("Update ",updatePopupRef.current);
         let handler = (event) => {
             if(!updatePopupRef.current?.contains(event.target))
             {
@@ -105,25 +102,27 @@ function Habit (props)
             <section className={styles.habitInfo}>
                 <p>{habit.name}</p>
                 <div className={styles.options}>
-                    <div className={styles.popupcontainer}>
+                    <div className={styles.popupcontainer} ref={updatePopupRef}>
                         <button className={styles.updateicon} onClick={() => setUpdatePopup(prev => !prev)}>
                             <FaRegPenToSquare></FaRegPenToSquare>
                         </button>
                         {
-                                updatePopup 
-                                && 
-                                <div ref={updatePopupRef} className={styles.updatepopup}>
-                                    <input type='text' className={validName ? styles.updateinput : styles.updateinputInvalid} value={name} onChange={(e) => setName(e.target.value)}/>
-                                    <button className={styles.updatebtn} onClick={() => handleClickUpdate(name,habit.id)}>Change</button>
-                                </div>
+                            updatePopup 
+                            && 
+                            <div className={styles.updatepopup}>
+                                <input type='text' className={validName ? styles.updateinput : styles.updateinputInvalid} value={name} onChange={(e) => setName(e.target.value)}/>
+                                <button className={styles.updatebtn} onClick={() => handleClickUpdate(name,habit.id)}>Change</button>
+                            </div>
                         }
                     </div>
-                    <div className={styles.popupcontainer}>
-                        <button className={styles.deleteicon} onClick={() => setDeletePopup(prev => !prev)}><MdDelete></MdDelete></button>
+                    <div className={styles.popupcontainer} ref={deletePopupRef}>
+                        <button className={styles.deleteicon} onClick={() => setDeletePopup(prev => !prev)}>
+                            <MdDelete></MdDelete>
+                        </button>
                         {
                             deletePopup 
                             && 
-                            <div ref={deletePopupRef} className={styles.deletepopup}>
+                            <div className={styles.deletepopup}>
                                 <p className={styles.deletetext}>Are you sure you want to lose this habit?</p>
                                 <button className={styles.deletebtn} onClick={() => handleClickDelete(habit.id)}>Delete</button>
                             </div>
