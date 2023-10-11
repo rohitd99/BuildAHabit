@@ -5,8 +5,8 @@ import Habit from './components/habit';
 import { initializeApp } from "firebase/app";
 import { getFirestore,collection,query,onSnapshot,addDoc,serverTimestamp,orderBy,deleteDoc,doc,updateDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
+import { motion, AnimatePresence } from "framer-motion"
 import ReactCanvasConfetti from 'react-canvas-confetti';
-import styles  from './utility/style';
 
 function App() {
 
@@ -15,12 +15,13 @@ function App() {
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyAU0k0ptoGaTS7tMNArOQEKcQdVkCbAP3g",
-        authDomain: "buildahabit-1e93e.firebaseapp.com",
-        projectId: "buildahabit-1e93e",
-        storageBucket: "buildahabit-1e93e.appspot.com",
-        messagingSenderId: "569686856715",
-        appId: "1:569686856715:web:e9d9a99de2b07cf933230e"
+        apiKey: "AIzaSyCuJ6CBp7MaujDtGiJ4Aqk9NmNmpWQk8ik",
+        authDomain: "buildahabit-54d14.firebaseapp.com",
+        projectId: "buildahabit-54d14",
+        storageBucket: "buildahabit-54d14.appspot.com",
+        messagingSenderId: "343376072851",
+        appId: "1:343376072851:web:0f096249395634ab9dfd66",
+        measurementId: "G-MYS7LWMFLK"
     };
 
     // Initialize Firebase
@@ -168,24 +169,28 @@ function App() {
 
     // JSX
     return (
-        <div className={styles.app}>
+        <div className="min-h-[100vh] bg-gradient-to-r from-indigo-800 to-indigo-900">
         <header></header>
-        <main className={styles.main}>
-            <div className={styles.container}>
-            <HabitInput addHabit={addHabit}></HabitInput>
-            <div className={styles.habitsContainer}>
-                {
-                Habits.map((habit) => {
-                    return(
-                    <Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} updateHabitName={updateHabitName} updateCheckBox={updateCheckBox} fireConfetti={fire}>
-                    </Habit>);
-                })
-                }
-            </div>
+        <main className="flex justify-center p-4 md:p-12 lg:p-14">
+            <div className="max-w-[800px] w-full flex flex-col gap-4">
+                <HabitInput addHabit={addHabit}></HabitInput>
+                <div className="flex flex-col gap-4">
+                    {
+                        <AnimatePresence>
+                        {
+                            Habits.map((habit) => {
+                                return(
+                                <Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} updateHabitName={updateHabitName} updateCheckBox={updateCheckBox} fireConfetti={fire}>
+                                </Habit>);
+                            })
+                        }
+                        </AnimatePresence>
+                    }
+                </div>
             </div>
         </main>
         <footer></footer>
-        <ReactCanvasConfetti refConfetti={getInstance} className={styles.confettiCanvas}></ReactCanvasConfetti>
+        <ReactCanvasConfetti refConfetti={getInstance} className="w-full h-full pointer-events-none fixed top-0 left-0"></ReactCanvasConfetti>
         </div>
 );
 }

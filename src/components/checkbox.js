@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "../utility/style";
 import "../styles/checkbox.scss";
 
 function CheckBox(props)
@@ -35,7 +34,7 @@ function CheckBox(props)
 
     // JSX
     return(
-        <li key={index} className={styles.list}>
+        <li key={index} className="flex gap-2 hover:text-black cursor-pointer">
             <label htmlFor={"checkbox-"+dayId}>
                 <input type="checkbox" name={"checkbox-"+dayId} id={"checkbox-" + dayId} checked={isChecked} onChange={handleChange}/>
                 Day {index+1}
